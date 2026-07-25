@@ -3,674 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MATCHERO</title>
-    <!-- Three.js (3D Arka Plan) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- FontAwesome (İkonlar) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
-    
+    <title>Brawl Stars Frida Scripts Archive</title>
     <style>
         :root {
-            --bg-color: #0b0d10;
-            --card-bg: rgba(20, 24, 33, 0.9);
-            --text-color: #f0f6fc;
-            --accent-color: #00f2fe;
-            --border-color: rgba(255, 255, 255, 0.12);
-            --hover-bg: rgba(255, 255, 255, 0.08);
-        }
-
-        [data-theme="white"] {
-            --bg-color: #f3f4f6;
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --text-color: #1f2937;
-            --accent-color: #2563eb;
-            --border-color: rgba(0, 0, 0, 0.15);
-            --hover-bg: rgba(0, 0, 0, 0.05);
-        }
-
-        [data-theme="sapphire"] {
-            --bg-color: #06101e;
-            --card-bg: rgba(10, 25, 47, 0.9);
-            --text-color: #e6f1ff;
-            --accent-color: #64ffda;
-            --border-color: rgba(100, 255, 218, 0.25);
-            --hover-bg: rgba(100, 255, 218, 0.1);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-            font-family: 'Fira Code', monospace;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --special-color: #f59e0b;
         }
 
         body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-color);
-            overflow-x: hidden;
-            min-height: 100vh;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-        }
-
-        header {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 10;
-        }
-
-        .theme-select {
-            background: var(--card-bg);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            padding: 8px 14px;
-            border-radius: 8px;
-            outline: none;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            font-weight: 600;
-        }
-
-        /* Hero Header */
-        .hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 50px 20px 25px;
-        }
-
-        .main-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            text-align: center;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
-            background: linear-gradient(90deg, #ff007f, #00f2fe, #4facfe, #00ff88, #ff007f);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientFlow 6s ease infinite;
-            filter: drop-shadow(0 0 15px rgba(0,242,254,0.3));
-        }
-
-        @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .discord-btn-small {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #5865F2;
-            color: #fff;
-            padding: 6px 14px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
-            transition: transform 0.2s, background-color 0.2s;
-        }
-
-        .discord-btn-small:hover {
-            transform: translateY(-2px);
-            background: #4752c4;
+            color: var(--text-main);
+            margin: 0;
+            padding: 2rem;
         }
 
         .container {
-            max-width: 850px;
-            margin: 20px auto 40px auto;
-            padding: 0 20px;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
-        /* Ana Menü Grid */
-        .main-menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-        }
-
-        .menu-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            padding: 25px 15px;
-            border-radius: 12px;
-            cursor: pointer;
+        h1 {
             text-align: center;
-            backdrop-filter: blur(12px);
-            transition: all 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
         }
 
-        .menu-card i {
-            font-size: 1.8rem;
-            color: var(--accent-color);
-        }
-
-        .menu-card span {
-            font-weight: bold;
-            font-size: 0.95rem;
-        }
-
-        .menu-card:hover {
-            border-color: var(--accent-color);
-            background: var(--hover-bg);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-        }
-
-        /* Alt Sayfa */
-        .sub-page {
-            display: none;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            backdrop-filter: blur(15px);
-            padding: 25px;
-            min-height: 350px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        }
-
-        .page-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .back-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--accent-color);
-            padding: 6px 14px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .back-btn:hover {
-            background: var(--hover-bg);
-        }
-
-        .page-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--accent-color);
-        }
-
-        .version-bar {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .version-select {
-            background: rgba(0, 0, 0, 0.4);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            padding: 8px 12px;
-            border-radius: 6px;
-            outline: none;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .content-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .script-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-color);
+        .search-box {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
             border-radius: 8px;
-            overflow: hidden;
+            border: 1px solid var(--border);
+            background-color: var(--card-bg);
+            color: #fff;
+            margin-bottom: 2rem;
+            box-sizing: border-box;
         }
 
-        .script-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            cursor: pointer;
+        .search-box:focus {
+            outline: 2px solid var(--accent);
         }
 
-        .script-header:hover {
-            background: var(--hover-bg);
-        }
-
-        .script-body {
-            display: none;
-            padding: 12px 16px;
-            background: rgba(0, 0, 0, 0.3);
-            border-top: 1px solid var(--border-color);
-            font-size: 0.85rem;
-            word-break: break-all;
-            color: #aaa;
-        }
-
-        .offset-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 14px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 0.85rem;
-        }
-
-        .offset-name {
-            font-weight: bold;
-        }
-
-        .offset-val {
-            color: var(--accent-color);
-            margin-left: 10px;
-        }
-
-        .btn-small {
-            background: var(--accent-color);
-            color: #000;
-            border: none;
-            padding: 5px 12px;
-            border-radius: 4px;
-            font-size: 0.78rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .btn-small:hover {
-            opacity: 0.8;
-        }
-
-        .ac-grid {
+        .grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
         }
 
-        .ac-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-color);
-            padding: 20px;
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
             border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
+            padding: 1.2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .card.special {
+            border-color: var(--special-color);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .version-badge {
+            background-color: var(--accent);
+            color: #0f172a;
             font-weight: bold;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
         }
 
-        .ac-btn:hover {
-            border-color: var(--accent-color);
-        }
-
-        .ac-btn.promon {
-            border-color: #ff9f43;
-            color: #ff9f43;
-        }
-
-        .blog-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 12px;
-            line-height: 1.6;
-            font-size: 0.9rem;
-        }
-
-        .blog-card h3 {
-            color: var(--accent-color);
-            margin-bottom: 8px;
-        }
-
-        #toast {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background: var(--accent-color);
+        .special .version-badge {
+            background-color: var(--special-color);
             color: #000;
-            padding: 10px 18px;
-            border-radius: 8px;
-            font-weight: bold;
-            display: none;
-            z-index: 100;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .script-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .script-item {
+            font-family: monospace;
+            font-size: 0.85rem;
+            padding: 0.3rem 0;
+            color: var(--text-muted);
+            word-break: break-all;
+        }
+
+        .script-item:hover {
+            color: var(--accent);
         }
     </style>
 </head>
-<body data-theme="dark">
+<body>
 
-    <div id="canvas-container"></div>
-    <div id="toast">Bildirim</div>
+<div class="container">
+    <h1>Brawl Stars Frida Scripts</h1>
+    <input type="text" id="searchInput" class="search-box" placeholder="Script adı veya sürüm ara (örn: v59, deobf, turkstars)..." onkeyup="filterScripts()">
 
-    <header>
-        <select class="theme-select" id="themeSelect" onchange="changeTheme(this.value)">
-            <option value="dark">Dark</option>
-            <option value="white">White</option>
-            <option value="sapphire">Sapphire</option>
-        </select>
-    </header>
+    <div class="grid" id="scriptGrid"></div>
+</div>
 
-    <div class="hero">
-        <h1 class="main-title">MATCHERO</h1>
-        <a href="https://discord.gg" target="_blank" class="discord-btn-small">
-            <i class="fa-brands fa-discord"></i> Discord
-        </a>
-    </div>
+<script>
+const scriptsData = [
+    {
+        category: "Special (Özel)",
+        isSpecial: true,
+        files: [
+            "special/BS+V59.js", "special/SupercellSWFdumper-v58-ios.js", 
+            "special/bsd-v44.js", "special/deobf-spk-2-v59.js", 
+            "special/deobf-spk-v59.js", "special/libBSRE-v57-deobf.script.js", 
+            "special/libformodders-v59.js", "special/libgene-v54.script.js", 
+            "special/ts-v56-64bit.js", "special/turkstars-v55.js"
+        ]
+    },
+    { version: "v11", files: ["libcorescript.js"] },
+    { version: "v12", files: ["fideuabrawl-ios.js", "libmrvitalik.script.js", "retrobrawl.script.js", "v12debug.js"] },
+    { version: "v13", files: ["BrownStars_13.181.js", "magicsbrawl-old.js", "magicsbrawl_v13.js", "v13 online battle.js", "v13-crypto.js"] },
+    { version: "v15", files: ["libmrvitalik.script.js", "v15 nost.js", "v15.js"] },
+    { version: "v18", files: ["V18.js", "libleak.js", "nost_v18.js", "nostrecovered.js", "v18-debug.js", "v18debugmenu.js"] },
+    { version: "v19", files: ["V19.111.1.js", "v19 grape.js"] },
+    { version: "v20", files: ["Armored-Brawl-20.js", "v20.93.js"] },
+    { version: "v22", files: ["debug22test.js", "vbcv22deobf.js"] },
+    { version: "v24", files: ["tailerbrawl-v24.js", "v24.150.js", "v24.js"] },
+    { version: "v25", files: ["v25.107.js", "v25sc.js"] },
+    { version: "v26", files: ["fhxbrawlv26.js", "libcb.script.js", "niki26.js", "script.js"] },
+    { version: "v27", files: ["alahv27.269.js", "kubune.js", "libgg.script27.269.1.js", "libreversed.script.js", "v27.269.js", "v27.js"] },
+    { version: "v28", files: ["idk.js", "v28.189.js", "v28.189debugnig.js", "v28.189libgroot.js"] },
+    { version: "v29", files: ["29libsctest.js", "LwitchyV29.js", "archbrawl.js", "libcat.js", "libsctest2.js", "libsigma-deobf.js", "steelbrawl.js", "v29_debug.js", "v29.js"] },
+    { version: "v30", files: ["v30.125.js"] },
+    { version: "v31", files: ["31.96.js"] },
+    { version: "v32", files: ["v32.170(arxan-killer).js"] },
+    { version: "v33", files: ["33.118.js"] },
+    { version: "v34", files: ["bs_v34.js", "v34.151.js"] },
+    { version: "v35", files: ["35.js", "v35.108.js"] },
+    { version: "v36", files: ["36_218_debug_button_d-1.js", "v36.218.js"] },
+    { version: "v39", files: ["libmeow.js"] },
+    { version: "v41", files: ["arxankiller-v41.js", "v41.166.js"] },
+    { version: "v42", files: ["ArxanKiller-v42.js"] },
+    { version: "v43", files: ["ArxanKiller-v43.js"] },
+    { version: "v44", files: ["44script.js", "brawlstars-v44-template.js", "bsd-v44.js", "main_v44.242.js"] },
+    { version: "v45", files: ["45.225.js", "v45.198.js"] },
+    { version: "v49", files: ["v49.js"] },
+    { version: "v50", files: ["bsv50.js"] },
+    { version: "v52", files: ["v52.177.js", "v52script.js"] },
+    { version: "v53", files: ["bsl_v53.js", "v53script.js"] },
+    { version: "v54", files: ["V54 by unknowlib.js", "libgene-v54.script.js", "v54.243(prod-connect).js"] },
+    { version: "v55", files: ["55.js", "lobbyinfo55.js", "lombmods.js", "turkstars-v55.js"] },
+    { version: "v56", files: ["ts-old-v56-32bit.js", "ts-old-v56-64bit.js", "ts-v56-32bit.js", "ts-v56-64bit.js", "v56.274.js"] },
+    { version: "v57", files: ["libBSRE-v57-deobf.script.js", "v57.js"] },
+    { version: "v58", files: ["SupercellSWFdumper-ios.js"] },
+    { version: "v59", files: ["BS+V59.js", "BSVL-V59.js", "button59.197.js", "bypassLouSlipperyDebuff-v59.js", "deobf-spk-2-v59.js", "deobf-spk-v59.js", "kitcheat.js", "kitmovelikegenejustwithcoordinates.js", "libformodders-v59.js", "v59.197.js", "xray.js"] }
+];
 
-    <div class="container">
-        <!-- ANA MENÜ -->
-        <div class="main-menu-grid" id="mainMenu">
-            <div class="menu-card" onclick="openPage('scripts')">
-                <i class="fa-solid fa-code"></i>
-                <span>Scripts</span>
-            </div>
-            <div class="menu-card" onclick="openPage('offsets')">
-                <i class="fa-solid fa-microchip"></i>
-                <span>Offsets</span>
-            </div>
-            <div class="menu-card" onclick="openPage('anticheat')">
-                <i class="fa-solid fa-shield-halved"></i>
-                <span>Anti-Cheat Bypass</span>
-            </div>
-            <div class="menu-card" onclick="openPage('tools')">
-                <i class="fa-solid fa-wrench"></i>
-                <span>Tools</span>
-            </div>
-            <div class="menu-card" onclick="openPage('mods')">
-                <i class="fa-solid fa-cubes"></i>
-                <span>Mods</span>
-            </div>
-        </div>
+function renderGrid(data) {
+    const grid = document.getElementById('scriptGrid');
+    grid.innerHTML = '';
 
-        <!-- ALT SAYFA PANELİ -->
-        <div class="sub-page" id="subPage">
-            <div class="page-header">
-                <button class="back-btn" onclick="goHome()">
-                    <i class="fa-solid fa-arrow-left"></i> Ana Menü
-                </button>
-                <span class="page-title" id="pageTitle">Sayfa</span>
-            </div>
-            <div id="pageContent"></div>
-        </div>
-    </div>
-
-    <script>
-        // Three.js 3D Arka Plan
-        const container = document.getElementById('canvas-container');
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    data.forEach(group => {
+        const isSpecial = group.isSpecial;
+        const title = isSpecial ? group.category : group.version.toUpperCase();
         
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        container.appendChild(renderer.domElement);
+        const card = document.createElement('div');
+        card.className = `card ${isSpecial ? 'special' : ''}`;
+        
+        const fileList = group.files.map(f => `<li class="script-item">${f}</li>`).join('');
 
-        const geometry = new THREE.IcosahedronGeometry(10, 2);
-        const material = new THREE.MeshBasicMaterial({ 
-            color: 0x00f2fe, 
-            wireframe: true,
-            transparent: true,
-            opacity: 0.12
-        });
-        const sphere = new THREE.Mesh(geometry, material);
-        scene.add(sphere);
+        card.innerHTML = `
+            <div class="card-header">
+                <span class="version-badge">${title}</span>
+                <small style="color: var(--text-muted);">${group.files.length} Dosya</small>
+            </div>
+            <ul class="script-list">
+                ${fileList}
+            </ul>
+        `;
+        grid.appendChild(card);
+    });
+}
 
-        camera.position.z = 20;
+function filterScripts() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    
+    const filtered = scriptsData.map(group => {
+        const matchedFiles = group.files.filter(f => 
+            f.toLowerCase().includes(query) || 
+            (group.version && group.version.toLowerCase().includes(query))
+        );
+        return { ...group, files: matchedFiles };
+    }).filter(group => group.files.length > 0);
 
-        function animate() {
-            requestAnimationFrame(animate);
-            sphere.rotation.x += 0.002;
-            sphere.rotation.y += 0.003;
-            renderer.render(scene, camera);
-        }
-        animate();
+    renderGrid(filtered);
+}
 
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
+renderGrid(scriptsData);
+</script>
 
-        function changeTheme(themeName) {
-            document.body.setAttribute('data-theme', themeName);
-            let hexColor = 0x00f2fe;
-            if(themeName === 'white') hexColor = 0x2563eb;
-            if(themeName === 'sapphire') hexColor = 0x64ffda;
-            material.color.setHex(hexColor);
-        }
-
-        function copyText(text) {
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(text);
-            } else {
-                const textArea = document.createElement("textarea");
-                textArea.value = text;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-            }
-            showToast("Kopyalandı!");
-        }
-
-        function showToast(msg, isWarning = false) {
-            const toast = document.getElementById('toast');
-            toast.innerText = msg;
-            toast.style.background = isWarning ? "#ff9f43" : "var(--accent-color)";
-            toast.style.display = 'block';
-            setTimeout(() => { toast.style.display = 'none'; }, 2500);
-        }
-
-        let currentVersion = 'v10';
-        const versions = [];
-        for(let i = 10; i <= 59; i++) versions.push(`v${i}`);
-
-        function goHome() {
-            document.getElementById('subPage').style.display = 'none';
-            document.getElementById('mainMenu').style.display = 'grid';
-        }
-
-        function openPage(page) {
-            document.getElementById('mainMenu').style.display = 'none';
-            document.getElementById('subPage').style.display = 'block';
-
-            if (page === 'scripts') renderScripts();
-            else if (page === 'offsets') renderOffsets();
-            else if (page === 'anticheat') renderAntiCheat();
-            else if (page === 'tools') renderTools();
-            else if (page === 'mods') renderMods();
-        }
-
-        // SCRIPTS
-        function renderScripts() {
-            document.getElementById('pageTitle').innerText = "Scripts";
-            const content = document.getElementById('pageContent');
-            
-            content.innerHTML = `
-                <div class="version-bar">
-                    <span style="font-size:0.85rem;">Sürüm Seç:</span>
-                    <select class="version-select" id="scriptVerSelect" onchange="changeScriptVer(this.value)">
-                        ${versions.map(v => `<option value="${v}" ${v === currentVersion ? 'selected' : ''}>${v}</option>`).join('')}
-                    </select>
-                </div>
-                <div class="content-list" id="scriptsList"></div>
-            `;
-            loadScriptsList();
-        }
-
-        function changeScriptVer(ver) {
-            currentVersion = ver;
-            loadScriptsList();
-        }
-
-        function loadScriptsList() {
-            const list = document.getElementById('scriptsList');
-            if(!list) return;
-
-            const mock = [
-                { id: 1, title: `Main Hub Script (${currentVersion})`, code: `loadstring(game:HttpGet('https://raw.github.com/matchero/${currentVersion}/main.lua'))()` },
-                { id: 2, title: `Aimbot & ESP (${currentVersion})`, code: `loadstring(game:HttpGet('https://raw.github.com/matchero/${currentVersion}/aimbot.lua'))()` },
-                { id: 3, title: `Bypass Core (${currentVersion})`, code: `loadstring(game:HttpGet('https://raw.github.com/matchero/${currentVersion}/bypass.lua'))()` }
-            ];
-
-            list.innerHTML = mock.map(s => `
-                <div class="script-card">
-                    <div class="script-header" onclick="toggleScript(${s.id})">
-                        <span><i class="fa-solid fa-file-code" style="color:var(--accent-color); margin-right:8px;"></i>${s.title}</span>
-                        <button class="btn-small" onclick="event.stopPropagation(); copyText('${s.code}')">Kopyala</button>
-                    </div>
-                    <div class="script-body" id="sb-${s.id}">${s.code}</div>
-                </div>
-            `).join('');
-        }
-
-        function toggleScript(id) {
-            const el = document.getElementById(`sb-${id}`);
-            if(el) el.style.display = el.style.display === 'block' ? 'none' : 'block';
-        }
-
-        // OFFSETS
-        function renderOffsets() {
-            document.getElementById('pageTitle').innerText = "Offsets";
-            const content = document.getElementById('pageContent');
-
-            content.innerHTML = `
-                <div class="version-bar">
-                    <span style="font-size:0.85rem;">Sürüm Seç:</span>
-                    <select class="version-select" onchange="changeOffsetVer(this.value)">
-                        ${versions.map(v => `<option value="${v}" ${v === currentVersion ? 'selected' : ''}>${v}</option>`).join('')}
-                    </select>
-                </div>
-                <div class="content-list" id="offsetsList"></div>
-            `;
-            loadOffsetsList();
-        }
-
-        function changeOffsetVer(ver) {
-            currentVersion = ver;
-            loadOffsetsList();
-        }
-
-        function loadOffsetsList() {
-            const list = document.getElementById('offsetsList');
-            if(!list) return;
-
-            const mock = [
-                { name: "GWorld", val: "0x78A9F40" },
-                { name: "ULocalPlayer", val: "0x120" },
-                { name: "HealthOffset", val: "0x88C" },
-                { name: "PlayerController", val: "0x30" },
-                { name: "AcknowledgedPawn", val: "0x338" }
-            ];
-
-            list.innerHTML = mock.map(o => `
-                <div class="offset-row">
-                    <div>
-                        <span class="offset-name">${o.name}</span>
-                        <span class="offset-val">${o.val}</span>
-                    </div>
-                    <button class="btn-small" onclick="copyText('${o.name} = ${o.val}')">Kopyala</button>
-                </div>
-            `).join('');
-        }
-
-        // ANTI-CHEAT BYPASS
-        function renderAntiCheat() {
-            document.getElementById('pageTitle').innerText = "Anti-Cheat Bypass";
-            document.getElementById('pageContent').innerHTML = `
-                <div class="ac-grid">
-                    <div class="ac-btn" onclick="openArxanBlog()">
-                        <i class="fa-solid fa-book-open" style="font-size:1.5rem; margin-bottom:8px; display:block; color:var(--accent-color);"></i>
-                        Arxan Killer
-                    </div>
-                    <div class="ac-btn promon" onclick="showToast('SOON...', true)">
-                        <i class="fa-solid fa-lock" style="font-size:1.5rem; margin-bottom:8px; display:block;"></i>
-                        Promon
-                    </div>
-                </div>
-                <div id="acSubContent" style="margin-top:20px;"></div>
-            `;
-        }
-
-        function openArxanBlog() {
-            document.getElementById('acSubContent').innerHTML = `
-                <div class="blog-card">
-                    <h3>Arxan Bypass Nedir & Nasıl Çalışır?</h3>
-                    <p>Arxan (Digital.ai), kütüphane dosyalarını (.so / .dll) şifreleyerek ve anti-tamper denetimleriyle bellek erişimlerini engelleyerek koruma sağlar.</p>
-                </div>
-                <div class="blog-card">
-                    <h3>Bypass Yöntemi (Blog / Anlatım)</h3>
-                    <p>1. Frida veya Inline Hooking araçları ile kütüphane yüklenirken kanca atılır.<br>
-                    2. Integrity denetimi yapan adresler NOP veya RET talimatlarıyla etkisiz bırakılır.<br>
-                    3. Offsetler bellek üzerinden sorunsuz yamalanır.</p>
-                </div>
-            `;
-        }
-
-        // TOOLS
-        function renderTools() {
-            document.getElementById('pageTitle').innerText = "Tools";
-            document.getElementById('pageContent').innerHTML = `
-                <div class="content-list">
-                    <div class="offset-row">
-                        <span>IDA Pro Hook Generator</span>
-                        <button class="btn-small" onclick="copyText('https://github.com/matchero/tools/raw/main/ida_gen.py')">İndir</button>
-                    </div>
-                    <div class="offset-row">
-                        <span>Frida Gadget Injector</span>
-                        <button class="btn-small" onclick="copyText('https://github.com/matchero/tools/raw/main/frida_inj.zip')">İndir</button>
-                    </div>
-                </div>
-            `;
-        }
-
-        // MODS
-        function renderMods() {
-            document.getElementById('pageTitle').innerText = "Mods";
-            document.getElementById('pageContent').innerHTML = `
-                <div class="content-list">
-                    <div class="offset-row">
-                        <span>Custom UI Skin Pack</span>
-                        <button class="btn-small" onclick="copyText('https://matchero.github.io/mods/skin.zip')">Link Kopyala</button>
-                    </div>
-                    <div class="offset-row">
-                        <span>HD Texture Pack</span>
-                        <button class="btn-small" onclick="copyText('https://matchero.github.io/mods/textures.pak')">Link Kopyala</button>
-                    </div>
-                </div>
-            `;
-        }
-    </script>
 </body>
 </html>
 
